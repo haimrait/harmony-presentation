@@ -273,7 +273,7 @@
 						A tale of two builders and the systems they forged
 					</p>
 					<p class="small" style="margin-top: 2em;">
-						Inspired by <em>A Knight of the Seven Kingdoms</em>
+						Ron & Haim
 					</p>
 					<aside class="notes">
 						Welcome everyone. This is the story of how we rebuilt
@@ -282,31 +282,7 @@
 					</aside>
 				</section>
 
-				<!-- Slide 2: Meet the Heroes -->
-				<section>
-					<h2>Meet the Heroes</h2>
-					<div class="hero-cards">
-						<div class="hero-card">
-							<div class="hero-emoji">🛡️</div>
-							<h3>Ron</h3>
-							<div class="subtitle">Ser Dunk the Tall</div>
-							<p>The steadfast knight — charging headfirst into battle with unwavering determination</p>
-						</div>
-						<div class="hero-card">
-							<div class="hero-emoji">🥚</div>
-							<h3>Haim</h3>
-							<div class="subtitle">Egg</div>
-							<p>The clever squire — small but sharp, always three steps ahead</p>
-						</div>
-					</div>
-					<aside class="notes">
-						Quick character intro. Ron is Dunk — the tall, brave
-						one who dives in. Haim is Egg — strategic, always
-						thinking ahead. Together they took on two big quests.
-					</aside>
-				</section>
-
-				<!-- Slide 3: Agenda -->
+				<!-- Slide 2: Agenda -->
 				<section>
 					<h2>The Quest Ahead</h2>
 					<div class="agenda">
@@ -376,7 +352,6 @@
 						<div class="before">
 							<h3 class="c-red">What it did</h3>
 							<p class="medium">Collected information from the user and created a ticket</p>
-							<p class="medium c-dim" style="margin-top: 10px;">That's it. Nothing else.</p>
 						</div>
 						<div class="after" style="border-color: var(--accent-gold);">
 							<h3 class="c-gold">What users wanted</h3>
@@ -1362,33 +1337,57 @@
 
 				<!-- Slide: Thread model -->
 				<section>
-					<h2>Thread <span class="c-threads">Model</span></h2>
-					<div class="comparison" style="max-width: 900px; margin: 20px auto;">
-						<div class="card">
-							<h3 class="c-threads">Thread</h3>
-							<div class="anatomy-block" style="font-size: 0.9em;">
-								id: <span class="c-gold">UUID7</span> <span class="c-dim">(time-ordered)</span><br/>
-								tenant_id: UUID<br/>
-								source: <span class="c-threads">slack | teams | portal | service-desk</span><br/>
-								external_id: <span class="c-dim">"workspace:channel:thread_ts"</span><br/>
-								employee_id: UUID<br/>
-								assigned_agent: <span class="c-toolkit">helpdesk | workflow-builder</span><br/>
-								title: string<br/>
-								last_message_at: timestamp
-							</div>
+					<h2>The Data <span class="c-threads">Model</span></h2>
+					<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 950px; margin: 20px auto; font-size: 0.6em;">
+						<div class="card" style="border-top: 3px solid var(--threads-color); padding: 20px;">
+							<h3 class="c-threads" style="margin: 0 0 14px; font-size: 1.3em;">Thread</h3>
+							<table style="width: 100%; border-collapse: collapse;">
+								<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+									<td style="padding: 6px 0;"><strong class="c-gold">id</strong></td>
+									<td style="padding: 6px 0; color: #aaa;">UUID7 (time-ordered)</td>
+								</tr>
+								<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+									<td style="padding: 6px 0;"><strong>source</strong></td>
+									<td style="padding: 6px 0;"><span class="c-threads">slack · teams · portal · service-desk</span></td>
+								</tr>
+								<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+									<td style="padding: 6px 0;"><strong>external_id</strong></td>
+									<td style="padding: 6px 0; color: #aaa;">maps to source system</td>
+								</tr>
+								<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+									<td style="padding: 6px 0;"><strong>employee_id</strong></td>
+									<td style="padding: 6px 0; color: #aaa;">thread owner</td>
+								</tr>
+								<tr>
+									<td style="padding: 6px 0;"><strong>assigned_agent</strong></td>
+									<td style="padding: 6px 0;"><span class="c-toolkit">helpdesk · workflow-builder</span></td>
+								</tr>
+							</table>
 						</div>
-						<div class="card">
-							<h3 class="c-threads">Thread Message</h3>
-							<div class="anatomy-block" style="font-size: 0.9em;">
-								id: <span class="c-gold">UUID7</span> <span class="c-dim">(time-ordered)</span><br/>
-								thread_id: UUID<br/>
-								role: <span class="c-deps">employee | system | agent</span><br/>
-								user_source: <span class="c-dim">slack | teams | portal</span><br/>
-								system_source: <span class="c-dim">workflows | agent | svc-desk</span><br/>
-								content: text<br/>
-								message_metadata: <span class="c-gold">JSONB</span><br/>
-								is_internal: boolean
-							</div>
+						<div class="card" style="border-top: 3px solid var(--toolkit-color); padding: 20px;">
+							<h3 class="c-toolkit" style="margin: 0 0 14px; font-size: 1.3em;">Thread Message</h3>
+							<table style="width: 100%; border-collapse: collapse;">
+								<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+									<td style="padding: 6px 0;"><strong class="c-gold">id</strong></td>
+									<td style="padding: 6px 0; color: #aaa;">UUID7 (time-ordered)</td>
+								</tr>
+								<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+									<td style="padding: 6px 0;"><strong>role</strong></td>
+									<td style="padding: 6px 0;"><span class="c-deps">employee · system · agent</span></td>
+								</tr>
+								<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+									<td style="padding: 6px 0;"><strong>user_source</strong></td>
+									<td style="padding: 6px 0; color: #aaa;">slack · teams · portal</td>
+								</tr>
+								<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+									<td style="padding: 6px 0;"><strong>metadata</strong></td>
+									<td style="padding: 6px 0;"><span class="c-gold">JSONB</span> — extensible</td>
+								</tr>
+								<tr>
+									<td style="padding: 6px 0;"><strong>is_internal</strong></td>
+									<td style="padding: 6px 0; color: #aaa;">hidden from employees</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 					<aside class="notes">
@@ -1401,27 +1400,26 @@
 
 				<!-- Slide: Internal vs External API -->
 				<section>
-					<h2><span class="c-deps">External</span> vs <span class="c-threads">Internal</span> API</h2>
-					<div class="comparison" style="max-width: 900px; margin: 20px auto;">
-						<div class="card" style="border-left: 4px solid var(--deps-color);">
-							<h3 class="c-deps">External API</h3>
-							<p class="small" style="color: #aaa;">/api/v1/threads</p>
-							<ul class="medium">
-								<li>Employee authentication required</li>
-								<li>Scoped to the authenticated user</li>
-								<li>Internal messages hidden</li>
-								<li>Used by Portal frontend</li>
-							</ul>
+					<h2>Two API <span class="c-threads">Surfaces</span></h2>
+					<div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; max-width: 950px; margin: 30px auto; align-items: center;">
+						<div class="card" style="border-top: 3px solid var(--deps-color); text-align: center; padding: 24px;">
+							<div style="font-size: 2em; margin-bottom: 10px;">🌐</div>
+							<h3 class="c-deps" style="margin: 0 0 5px;">External</h3>
+							<p class="small" style="color: var(--deps-color); margin: 0 0 12px;">/api/v1/threads</p>
+							<p class="medium" style="margin: 4px 0;">Employee-scoped</p>
+							<p class="medium" style="margin: 4px 0;">Auth required</p>
+							<p class="medium" style="margin: 4px 0;">Internal msgs hidden</p>
+							<p class="small c-dim" style="margin-top: 10px;">Portal & frontend</p>
 						</div>
-						<div class="card" style="border-left: 4px solid var(--threads-color);">
-							<h3 class="c-threads">Internal API</h3>
-							<p class="small" style="color: #aaa;">/api/v1/internal</p>
-							<ul class="medium">
-								<li>Service-to-service, no employee auth</li>
-								<li>Full access — all threads, all messages</li>
-								<li>Can include internal messages</li>
-								<li>Used by agents, service desk, processors</li>
-							</ul>
+						<div style="font-size: 2em; color: var(--accent-gold);">vs</div>
+						<div class="card" style="border-top: 3px solid var(--threads-color); text-align: center; padding: 24px;">
+							<div style="font-size: 2em; margin-bottom: 10px;">🔧</div>
+							<h3 class="c-threads" style="margin: 0 0 5px;">Internal</h3>
+							<p class="small" style="color: var(--threads-color); margin: 0 0 12px;">/api/v1/internal</p>
+							<p class="medium" style="margin: 4px 0;">Full access</p>
+							<p class="medium" style="margin: 4px 0;">Service-to-service</p>
+							<p class="medium" style="margin: 4px 0;">Internal msgs visible</p>
+							<p class="small c-dim" style="margin-top: 10px;">Agents, processors, service desk</p>
 						</div>
 					</div>
 					<aside class="notes">
@@ -1429,32 +1427,6 @@
 						employee-scoped, authenticated, internal messages hidden.
 						Internal is for our backend services — full access, no
 						employee filter, can see internal messages and notes.
-					</aside>
-				</section>
-
-				<!-- Slide: UUID7 -->
-				<section>
-					<h2><span class="c-gold">UUID7</span> — Time-Ordered IDs</h2>
-					<div style="max-width: 700px; margin: 30px auto;">
-						<div class="anatomy-block" style="text-align: center; font-size: 0.6em;">
-							<span class="c-dim">018f6b2c</span>-<span class="c-gold">a1b2</span>-<span class="c-dim">7def-8abc-1234567890ab</span><br/><br/>
-							<span class="c-gold">^^^^^^^^</span><br/>
-							<span class="c-gold">Timestamp encoded in the ID itself</span>
-						</div>
-						<div style="margin-top: 25px;">
-							<ul class="medium">
-								<li>Natural chronological ordering — no extra timestamp column needed</li>
-								<li>Efficient database range queries</li>
-								<li>Pagination without complex ORDER BY</li>
-								<li>Globally unique + time-sortable</li>
-							</ul>
-						</div>
-					</div>
-					<aside class="notes">
-						A nice detail: we use UUID7 for all IDs. The timestamp
-						is encoded right in the UUID, so messages are naturally
-						sorted chronologically. No need for a separate timestamp
-						column for ordering. Efficient queries, clean pagination.
 					</aside>
 				</section>
 
@@ -1543,41 +1515,26 @@
 						&nbsp;&nbsp;<span class="c-gate">"assigned_agent"</span>: <span class="c-deps">"helpdesk-agent | workflow-builder"</span><br/>
 						}
 					</div>
-					<p class="fragment medium" style="margin-top: 20px;">
-						Each subscriber only gets messages it cares about.<br/>
-						<span class="c-dim">e.g., Service Desk processor filters out messages from itself — prevents loops.</span>
-					</p>
+					<div class="fragment" style="margin-top: 20px;">
+						<p class="medium" style="margin-bottom: 10px;">Subscription filter policies <span class="c-dim">(defined in Terraform)</span>:</p>
+						<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 700px; margin: 0 auto; font-size: 0.5em;">
+							<div class="card" style="padding: 12px; border-color: var(--deps-color);">
+								<strong class="c-deps">Service Desk</strong><br/>
+								<code>user_source != "service-desk"</code><br/>
+								<span class="c-dim">Prevents infinite loops</span>
+							</div>
+							<div class="card" style="padding: 12px; border-color: #e1bee7;">
+								<strong style="color: #e1bee7;">Slack</strong><br/>
+								<code>thread_source == "slack"</code><br/>
+								<span class="c-dim">Only Slack-origin threads</span>
+							</div>
+						</div>
+					</div>
 					<aside class="notes">
 						Each message carries attributes. Subscribers use these
 						for filtering at the SNS level. The service desk processor
 						filters out messages that originated from itself — preventing
 						infinite loops. Slack processor only gets Slack-source threads.
-					</aside>
-				</section>
-
-				<!-- Slide: Why FIFO -->
-				<section>
-					<h2>Why <span class="c-gold">FIFO</span>?</h2>
-					<div class="comparison" style="max-width: 900px; margin: 30px auto;">
-						<div class="card" style="border-left: 4px solid var(--accent-gold);">
-							<h3 class="c-gold">Ordering</h3>
-							<p class="medium">Messages within a thread are always processed in order.</p>
-							<p class="medium c-dim">Grouped by thread_id — no cross-thread blocking.</p>
-						</div>
-						<div class="card" style="border-left: 4px solid var(--accent-gold);">
-							<h3 class="c-gold">Deduplication</h3>
-							<p class="medium">Each message processed exactly once.</p>
-							<p class="medium c-dim">Message ID used as deduplication key.</p>
-						</div>
-					</div>
-					<p class="fragment medium" style="margin-top: 20px;">
-						Conversations make no sense out of order.
-					</p>
-					<aside class="notes">
-						We use FIFO for two reasons. First: ordering. Messages
-						in a conversation must be processed in sequence. FIFO
-						guarantees this within a message group (thread_id).
-						Second: deduplication. No double-processing.
 					</aside>
 				</section>
 
@@ -1804,9 +1761,6 @@
 							<div class="arch-box" style="border-color: var(--deps-color);">
 								5. SD Processor<br/>syncs to ticket
 							</div>
-							<div class="arch-box" style="border-color: var(--deps-color);">
-								5. Portal<br/>also updated
-							</div>
 						</div>
 					</div>
 					<aside class="notes">
@@ -1933,37 +1887,6 @@
 						when a ticket is created (eyes removed). Check mark when
 						resolved (ticket emoji removed). Warning if something
 						fails. Users don't need to leave Slack to know the status.
-					</aside>
-				</section>
-
-				<!-- Slide: Filtering -->
-				<section>
-					<h2><span class="c-gate">Filtering</span></h2>
-					<div class="comparison" style="max-width: 900px; margin: 20px auto;">
-						<div class="card">
-							<h3 class="c-gate">Thread Filtering</h3>
-							<ul class="medium">
-								<li>By source: show only Portal, Slack, etc.</li>
-								<li>By employee: scoped to authenticated user</li>
-								<li>Soft-deleted threads excluded by default</li>
-								<li>Sorted by last activity</li>
-							</ul>
-						</div>
-						<div class="card">
-							<h3 class="c-gate">Message Filtering</h3>
-							<ul class="medium">
-								<li>Internal messages hidden from employees</li>
-								<li>Visible to agents via internal API</li>
-								<li>Pagination with limit/offset</li>
-								<li>Optional attachment inclusion</li>
-							</ul>
-						</div>
-					</div>
-					<aside class="notes">
-						Filtering works at both levels. Thread listing can filter
-						by source — show me only my Slack conversations, or only
-						Portal threads. Messages filter out internal notes from
-						employees but show them to agents. Clean separation.
 					</aside>
 				</section>
 
@@ -2179,17 +2102,25 @@
 				<!-- Slide: The journey continues -->
 				<section>
 					<h2>The Journey <span class="c-gold">Continues</span></h2>
-					<div style="max-width: 700px; margin: 40px auto;">
-						<ul style="font-size: 0.85em;">
-							<li>More toolkits — more problems solved automatically</li>
-							<li>More channels — more ways to reach users</li>
-							<li>Smarter agents — learning from conversations</li>
-							<li>Better observability — deeper insights into agent behavior</li>
-						</ul>
+					<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; max-width: 900px; margin: 30px auto; font-size: 0.6em;">
+						<div class="card" style="border-top: 3px solid var(--toolkit-color); text-align: center; padding: 20px;">
+							<div style="font-size: 2.5em; margin-bottom: 8px;">🧩</div>
+							<h3 class="c-toolkit" style="margin: 0 0 6px;">More Toolkits</h3>
+							<p class="c-dim" style="margin: 0;">More problems solved automatically</p>
+						</div>
+						<div class="card" style="border-top: 3px solid var(--deps-color); text-align: center; padding: 20px;">
+							<div style="font-size: 2.5em; margin-bottom: 8px;">🧠</div>
+							<h3 class="c-deps" style="margin: 0 0 6px;">Smarter Agents</h3>
+							<p class="c-dim" style="margin: 0;">Learning from conversations over time</p>
+						</div>
+						<div class="card" style="border-top: 3px solid var(--accent-gold); text-align: center; padding: 20px;">
+							<div style="font-size: 2.5em; margin-bottom: 8px;">🔭</div>
+							<h3 class="c-gold" style="margin: 0 0 6px;">Deeper Insights</h3>
+							<p class="c-dim" style="margin: 0;">Observability into every agent decision</p>
+						</div>
 					</div>
-					<p class="fragment medium" style="margin-top: 30px; color: var(--accent-gold);">
-						The foundation is solid. The architecture scales.<br/>
-						Now it's about building on top of it.
+					<p class="fragment" style="margin-top: 25px; font-size: 1.1em; color: var(--accent-gold);">
+						The foundation is solid. The architecture scales.
 					</p>
 					<aside class="notes">
 						The journey continues. More toolkits, more channels,
